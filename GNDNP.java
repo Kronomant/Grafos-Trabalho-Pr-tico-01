@@ -4,9 +4,14 @@ import java.io.BufferedReader;
 
 public class GNDNP {
     public static void main(String[] args) {
+
+
+        System.out.println("*********************************************************************");
+        System.out.println("                 Grafo GNDNP Não Direcionado Não Ponderado                     ");
+        System.out.println("*********************************************************************");
     
         try{
-            FileReader arq = new FileReader("/home/milard/Documentos/Faculdade/Grafos/TP01/entrada2.txt");
+            FileReader arq = new FileReader("./entradaGNDNP.txt");
             BufferedReader lerArq = new BufferedReader(arq);
 
             String linha = lerArq.readLine(); 
@@ -38,7 +43,6 @@ public class GNDNP {
                     }
                   
                 }
-                // System.out.println(" ");
             }
 
 

@@ -103,7 +103,7 @@ public class PND {
             BufferedReader lerArq = new BufferedReader(arq);
 
             System.out.println("*********************************************************************");
-            System.out.println("                 GrafoPND Direcionado Não Ponderado                     ");
+            System.out.println("                 GrafoPND Não Direcionado  Ponderado                     ");
             System.out.println("*********************************************************************");
             int qtde_vertices = Integer.parseInt(lerArq.readLine());
             diagrama = new DiagramaPND(qtde_vertices);

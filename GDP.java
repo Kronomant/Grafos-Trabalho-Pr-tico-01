@@ -84,12 +84,15 @@ class Diagrama {
 }
 
 public class GDP{
-    public static void lerEntrada(Diagrama diagrama){
+    public static void lerEntrada(){
         try{
-            FileReader arq = new FileReader("/home/milard/Documentos/Faculdade/Grafos/TP01/entrada.txt");
+            FileReader arq = new FileReader("./entradaGDP.txt");
             BufferedReader lerArq = new BufferedReader(arq);
 
             String linha = lerArq.readLine(); 
+            Diagrama diagrama = new Diagrama(Integer.parseInt(linha));
+
+
             while (linha != null) {
             
                 String[] dados = linha.split(",");
@@ -101,14 +104,19 @@ public class GDP{
                 linha = lerArq.readLine();
             }
             arq.close();
+            diagrama.imprimeVertices();
+
         } catch(IOException erro){
             System.err.printf("Erro na abertura do arquivo: %s.\n", erro.getMessage());
         }
     }
     public static void main(String[] args){
-        Diagrama diagrama = new Diagrama(4);
-        lerEntrada(diagrama);
-        diagrama.imprimeVertices();
+
+        System.out.println("*********************************************************************");
+        System.out.println("                 Grafo GDP Direcionado  Ponderado                     ");
+        System.out.println("*********************************************************************");
+        lerEntrada();
+       
     }
 
 }
