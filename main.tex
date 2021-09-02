@@ -1,0 +1,92 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% How to use writeLaTeX: 
+%
+% You edit the source code here on the left, and the preview on the
+% right shows you the result within a few seconds.
+%
+% Bookmark this page and share the URL with your co-authors. They can
+% edit at the same time!
+%
+% You can upload figures, bibliographies, custom classes and
+% styles using the files menu.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[12pt]{article}
+
+\usepackage{sbc-template}
+
+\usepackage{graphicx,url}
+
+%\usepackage[brazil]{babel}   
+\usepackage[utf8]{inputenc}  
+
+     
+\sloppy
+
+\title{Trabalho Prático 1 - Grafos}
+
+\author{Isabela Aguilar, Lucas Milard}
+
+\address{
+Pontifícia Universidade Católica de Minas Gerais (PUC MG)\\
+Rua Cláudio Manoel, 1.162 -- Funcionários -- Belo Horizonte -- MG -- Brasil
+}
+
+\begin{document} 
+
+\maketitle
+\section{Acessos}
+
+Todo o código pode ser acessado no repositório:
+\url{https://github.com/Kronomant/Grafos-Trabalho-Pr-tico-01}
+
+\section{Introdução}
+
+Por meio dos conhecimentos adquiridos ao longo das aulas da disciplina Teoria dos Grafos e Computabilidade foi possível implementar a representação dos quatro tipos de grafos descritos nas especificações do trabalho. Esses grafos são: grafo direcionado não-ponderado, grafo não-direcionado não-ponderado, grafo direcionado ponderado e grafo não-direcionado ponderado.
+
+\section{Implementação}
+A linguagem escolhida para desenvolver a aplicação foi a linguagem Java.Foi feita essa escolha pois, durante grande parte do curso de Ciência da Computação estamos utilizando Java para fins acadêmicos e isso contribuiu para um melhor entendimento de como a solução desse trabalho seria executada.
+
+\subsection{Organização dos arquivos}
+
+Foram criados quatros arquivos, um para cada grafo, sendo eles: GDP.java (para representar grafos direcionados ponderados), GNDNP.java (para grafos não-direcionados e não-ponderados), NPD.java (não-ponderados direcionados) e PND.java (para grafos ponderados não-direcionados). Cada arquivo pode ser executado separadamente e todos possuem exemplos de entradas válidas para serem executados testes sobre a implementação.
+
+\subsection{Grafo direcionado e ponderado}
+
+Para esse grafo foi escolhida a implementação da lista de adjacência, comparado as matrizes seria a melhor escolha pois por se tratar de uma grafo direcionado uma implementação usando matriz ocuparia muito espaço desnecessário. Além disso por utilizar de celulas na lista para implementar o peso das arestas basta criar um elemento na celula.
+
+A implementação é feitas atraves de duas classes, Celula que contem o rotulo, o peso da aresta e um ponteiro para o proximo elemento.
+A segunda classe é a Diagrama que possui o numero de arestas, numero de vertices, um vetor de celulas e um index para esse vetor.
+Na classe diagrama é criado esse vetor de celulas onde cada posição é um vertices que aponta para sua lista de adjacencia.
+
+O metodo addArestas cria uma nova celula com seu respectivo peso. Não foi criado uma 3° classe para as arestas em si, mesmo tendo apenas a classe celula que é feitas a representação dos vertices e o peso está nessa mesma celula, se existir uma outra aresta é criado outra celula com outro peso. Dessa forma é possível controlar os pesos das arestas sem a necessidade de mais um objeto que iria ocupar mais espaço em memória.
+
+\subsection{Grafo não-direcionado e não-ponderado}
+Para a implementação desse grafo foi escolhido uma matriz de adjacencia, a principal motivação dessa escolha foi a falta de direção, fazer uma lista de adjacencia ocuparia muito espaço já que é possivel acessar um vertice unilateralmente. Dessa forma nesse caso o uso da matriz é mais efeitivo já que é só colocar 1 em ambos index da matriz.
+    
+    Não foi necessária a implementção de uma classe especifica já que
+é necessário apenas uma matriz de inteiros. 
+A entrada é lida de um arquivo txt, quando uma nova aresta é adicionada na matriz ela é adicionada em ambos os lados do vertice.
+Exemplo:
+(1)----(3)
+os indices (0,2) e (2,0) recebem o valor 1
+
+\subsection{Grafo não-ponderado e direcionado}
+
+No arquivo NPD.java foram criadas duas classes, a primeira GrafoNPD trata da representação do grafo contendo o rótulo do vértice (denominado "valor") e o vértice que ele está apontando a sua aresta (chamado "prox"). A próxima classe DiagramaNPD contém as arestas e vértices para compor o diagrama, além de um vetor capaz de armazenar tanto o rótulo do vértice quanto o vértice de destino da sua aresta, para todos os nós do diagrama.
+
+O método criarNovaAresta é responsável por receber dois valores, o vértice de origem (de onde parte a aresta) e o vértice de destino (onde a aresta chega). Esse método cria um novo GrafoNPD auxiliar que será atribuído ao atributo "prox" do grafo de origem para marcar o destino da aresta criada. 
+
+Para exibir o grafo, foi escolhida a lista de adjacência, já que a matriz de adjacência teria poucas informações e ocuparia muito espaço de memória. Como o uso de memória da lista de adjacência depende do número de arestas e não de vértices, essa acaba sendo a melhor escolha paara esse tipo de grafo.
+
+\subsection{Grafo ponderado e não-direcionado}
+
+No arquivo PND.java também foram criadas duas classes, a GrafoPND com a representação bem semelhante ao da classe GrafoNPD acima, com a adição do atributo pesoAresta, que ficará incumbido de armazenar o valor da conexão entre os vértices. A classe DiagramaPND contém as arestas e vértices para compor o diagrama, além de um vetor capaz de armazenar tanto o rótulo do vértice quanto o vértice de destino da sua aresta, para todos os vértices do diagrama.
+
+O método criarNovaAresta recebe três parâmetros, o vértice de origem, o vértice de destino (mesmo que não tenha direção na aresta optamos por nomear dessa forma) e o peso (valor para a conexão entre os vértices). Nesse método, fazemos o registro da ligação origem-destino e dentro dele é chamado, caso a origem igual ao destino (Loop), o método gerarArestas que registrará a ligação destino-origem.
+
+Para exibir o grafo, foi escolhida a matriz de adjacência. Como o grafo não direcionado tem representação em ambas as direções (origem-destino e destino-origem) a visualização é mais eficaz utilizando a matriz. Além disso, é possível representar o valor dos pesos de cada aresta e, caso necessário representar um lado apenas da matriz, uma vez que, seus resutados são espelhados durante a visualização. 
+
+
+\end{document}
